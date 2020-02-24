@@ -1,67 +1,44 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
-    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/bootstrap.min.css') }}" />
-    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/style.css') }}" />
-    <title>Car Sharing</title>
+	<meta charset="utf-8">
+	<link rel="icon" href="{{url_for('static',filename = 'img/coin.png')}}">
+	<title>Sign up · MoneyTracker</title>
+	<link href="https://fonts.googleapis.com/css?family=Open+Sans|Sriracha|Raleway&display=swap" rel="stylesheet">
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+	<link rel="stylesheet" type="text/css" href="{{url_for('static',filename = 'css/style.css')}}">
 </head>
-
 <body>
-    <div id="header" class="full-rel-left">
-        <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-            <div class="container">
-                <a href="/" class="navbar-brand">Car Sharing</a>
-                <button class="navbar-toggler" type="button" data-toggle="collapse"
-                    data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false"
-                    aria-label="Toggle navigation">
-                    <span class="navbar-toggler-icon"></span>
-                </button>
-                <div class="collapse navbar-collapse justify-content-end" id="navbarSupportedContent">
-                    <ul class="navbar-nav">
-                        <li class="nav-item active">
-                            <a class="nav-link" href="/register">Join <span class="sr-only">(current)</span></a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="/login">Login</a>
-                        </li>
-                    </ul>
-                </div>
-            </div>
-        </nav>
-    </div>
-
-    <div id="register" class="full-rel-left">
-        <div class="container mb-3">
-            <h3 class="my-3">Login</h3>
-{% with messages = get_flashed_messages() %}
-{% if messages %}
-<ul class=flashes>
-{% for message in messages %}
-<li>{{ message }}</li>
-{% endfor %}
-</ul>
-{% endif %}
-{% endwith %}
-            <form action="/login_user" method="POST">
-
-                <div class="form-group">
-                    <label for="email">Email</label>
-                    <input type="text" class="form-control" name="email">
-                </div>
-                <div class="form-group">
-                    <label for="password">Password</label>
-                    <input type="password" class="form-control" name="password">
-                </div>
-                <input type="submit" class="btn btn-primary" name="submit" value="Login">
-            </form>
-        </div>    
-    </div>
-  
-<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
-<script type="text/javascript" src="{{ url_for('static', filename='js/bootstrap.min.js') }}"></script>
+	<div class="wrapper signup-login">
+		<content> 
+			<img class="img-fluid" src="{{url_for('static', filename = 'img/coin.png')}}" >
+			<h2>Wellcome back to <span class="brand-name">MoneyTracker</span></h2>
+			<form action="" method="POST">
+				<table>
+					<tr>
+						<td><label for="email">Email address:</label></td>
+						<td><input type="text" name="email" id="email" class="form-control" ></td>
+					</tr>
+					<tr>
+						<td><label for="password">Password:</label></td>
+						<td><input type="password" name="password" id="password" class="form-control" ></td>
+					</tr>
+				</table>
+				<input type="submit" name="register" value="Login" class="btn">
+			</form>
+			<div class="flash-messages">
+				{% with messages = get_flashed_messages() %}     
+					{% if messages %}                            
+						{% for message in messages %}            
+				 		   <p>{{message}}</p>                   
+						{% endfor %}
+					{% endif %}
+				{% endwith %}
+			</div>
+			<p>No account? <a href="/register">Sign Up</a> </p>
+		</content>
+		{% include 'includes/footer.html' %}
+	</div>
 </body>
 </html>
