@@ -45,8 +45,8 @@ class User(db.Model):
     monthly_income = db.Column(db.Float)
     created_at = db.Column(db.DateTime, server_default=func.now())   
     updated_at = db.Column(db.DateTime, server_default=func.now(), onupdate=func.now())
-    user_expenses = db.relationship('UserExpense', secondary=expenses, lazy='dynamic',backref=db.backref('expenses_author', lazy=True))
-    user_todos = db.relationship('UserTodo', secondary=todos, lazy='dynamic',backref=db.backref('todos_author', lazy=True))
+    user_expenses = db.relationship('UserExpense',  lazy=True,backref=db.backref('expenses_author'))
+    user_todos = db.relationship('UserTodo',lazy=True,backref=db.backref('todos_author'))
   
     @classmethod
     def validate_user(cls, user_data):
@@ -67,6 +67,7 @@ class User(db.Model):
         if len(request.form['email']) < 1:
             flash("Email cannot be blank!", 'email')
         if not EMAIL_REGEX.match(request.form['email']) and len(request.form['email']) > 0:    # test whether a field matches the pattern
+            is_valid = False
             flash("Invalid email address!", 'email')
         if len(user_data["monthly_income"]) < 1:
             is_valid = False
@@ -74,8 +75,8 @@ class User(db.Model):
         if not user_data["monthly_income"].isdigit():
             is_valid = False
             flash('Monthly income must be a number','monthly_income')
-        if not PASSWORD_REGEX.match(request.form['password']):
-            isValid = False
+        if not PASSWORD_REGEX.match(request.form['password'] ):
+            is_valid = False
             flash("Password must have at least 5 characters, one number, one uppercase character, one special symbol.",'password')
 
 
@@ -114,6 +115,6 @@ class Category(db.Model):
     __tablename__ = 'categories'
     id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String())
-    category_expenses = db.relationship('UserExpense', secondary=expenses, lazy='dynamic',backref=db.backref('expenses_category', lazy=True))
-    category_todos = db.relationship('UserTodo', secondary=todos, lazy='dynamic',backref=db.backref('todos_category', lazy=True))
+    category_expenses = db.relationship('UserExpense',  lazy=True,backref=db.backref('expenses_category'))
+    category_todos = db.relationship('UserTodo', lazy=True,backref=db.backref('todos_category'))
 

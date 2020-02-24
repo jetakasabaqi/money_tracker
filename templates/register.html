@@ -19,33 +19,12 @@
 					<p>Manage all your money for free.</p>
 					<tr>
 						<td><label for="first_name">First name:</label></td>
-						<td><input type="text" name="first_name" id="first_name" class="form-control" ></td>
+						<td><input required type="text" name="first_name" id="first_name" class="form-control" ></td>
 					</tr>
-			        <tr>
-						<td colspan="2">
-						{% with messages = get_flashed_messages(category_filter=["first_name"])%}
-						{% if messages %}
-						{% for message in messages %}
-						<p>{{message}}</p>
-						{% endfor %}
-						{% endif %}
-						{% endwith %}
-						</td>
-					</tr>
+
 					<tr>
 						<td><label for="last_name">Last name:</label></td>
-						<td><input type="text" name="last_name" id="last_name" class="form-control" ></td>
-					</tr>
-					<tr>
-						<td colspan="2">
-							{% with messages = get_flashed_messages(category_filter=["last_name"])%}
-							{% if messages %}
-							{% for message in messages %}
-							<p>{{message}}</p>
-							{% endfor %}
-							{% endif %}
-							{% endwith %}
-						</td>
+						<td><input required type="text" name="last_name" id="last_name" class="form-control" ></td>
 					</tr>
 					<tr>
 						<td><label for="email">Email address:</label></td>
@@ -56,42 +35,47 @@
 							{% with messages = get_flashed_messages(category_filter=["email"])%}
 							{% if messages %}
 							{% for message in messages %}
-							<p>{{message}}</p>
+							<p class="errors-text">{{message}}</p>
 							{% endfor %}
 							{% endif %}
 							{% endwith %}
 						</td>
 					</tr>
+
 					<tr>
 						<td><label for="monthly_income">Monthly income $:</label></td>
-						<td><input type="text" name="monthly_income" id="monthly_income" class="form-control"></td>
+						<td><input required type="text" name="monthly_income" id="monthly_income" class="form-control"></td>
+
 					</tr>
 					<tr>
 						<td colspan="2">
 							{% with messages = get_flashed_messages(category_filter=["monthly_income"])%}
 							{% if messages %}
 							{% for message in messages %}
-							<p>{{message}}</p>
+							<p  class="errors-text">{{message}}</p>
 							{% endfor %}
 							{% endif %}
 							{% endwith %}
 						</td>
 					</tr>
+
 					<tr>
 						<td><label for="password">Password:</label></td>
 						<td><input type="password" name="password" id="password" class="form-control" ></td>
+
 					</tr>
 					<tr>
-						<td colspan="2">
+						<td colspan="2" >
 							{% with messages = get_flashed_messages(category_filter=["password"])%}
 							{% if messages %}
 							{% for message in messages %}
-							<p>{{message}}</p>
+							<p  class="errors-text">{{message}}</p>
 							{% endfor %}
 							{% endif %}
 							{% endwith %}
 						</td>
 					</tr>
+
 
 					<tr>
 						<td><label for="confirm_password">Confirm password: </label></td>
