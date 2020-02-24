@@ -2,6 +2,7 @@
 
 /*************************/
 .wrapper{
+  height: 100vh;
   background: hsl(218, 28%, 13%);
   color: white;
   line-height: 1.5;
@@ -31,6 +32,10 @@
   .signup-login content a{
     text-decoration: none;
     color:#3dc9ae;
+  }
+  .signup-login form tr td p{
+    color: red;
+    font-size: 11px;
   }
 
 

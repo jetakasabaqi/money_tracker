@@ -14,28 +14,51 @@
 		<content> 
 			<img class="img-fluid" src="{{url_for('static', filename = 'img/coin.png')}}" >
 			<h2>Wellcome back to <span class="brand-name">MoneyTracker</span></h2>
-			<form action="" method="POST">
+			<form action="/login_user" method="POST">
 				<table>
 					<tr>
 						<td><label for="email">Email address:</label></td>
 						<td><input type="text" name="email" id="email" class="form-control" ></td>
 					</tr>
 					<tr>
+						<td colspan="2">
+							{% with messages = get_flashed_messages(category_filter=["email"])%}
+							{% if messages %}
+							{% for message in messages %}
+							<p>{{message}}</p>
+							{% endfor %}
+							{% endif %}
+							{% endwith %}
+						</td>
+					<tr>
 						<td><label for="password">Password:</label></td>
 						<td><input type="password" name="password" id="password" class="form-control" ></td>
 					</tr>
+					<tr>
+						<td colspan="2">
+							{% with messages = get_flashed_messages(category_filter=["password"])%}
+							{% if messages %}
+							{% for message in messages %}
+							<p>{{message}}</p>
+							{% endfor %}
+							{% endif %}
+							{% endwith %}
+						</td>
+					<tr>
+					<tr>
+						<td colspan="2">
+							{% with messages = get_flashed_messages(category_filter=["login_error"])%}
+							{% if messages %}
+							{% for message in messages %}
+							<p>{{message}}</p>
+							{% endfor %}
+							{% endif %}
+							{% endwith %}
+						</td>
 				</table>
 				<input type="submit" name="register" value="Login" class="btn">
 			</form>
-			<div class="flash-messages">
-				{% with messages = get_flashed_messages() %}     
-					{% if messages %}                            
-						{% for message in messages %}            
-				 		   <p>{{message}}</p>                   
-						{% endfor %}
-					{% endif %}
-				{% endwith %}
-			</div>
+
 			<p>No account? <a href="/register">Sign Up</a> </p>
 		</content>
 		{% include 'includes/footer.html' %}
