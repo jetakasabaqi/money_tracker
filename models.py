@@ -6,6 +6,7 @@ app.secret_key = 'secret'
 bcrypt = Bcrypt(app)
 
 EMAIL_REGEX = re.compile(r'^[a-zA-Z0-9.+_-]+@[a-zA-Z0-9._-]+\.[a-zA-Z]+$')
+PASSWORD_REGEX = re.compile(r'^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*#?&])[A-Za-z\d@$!#%*?&]{5,}$')
 SpecialSym =['$', '@', '#', '%'] 
 
 expenses = db.Table('expenses', 
@@ -44,8 +45,8 @@ class User(db.Model):
     monthly_income = db.Column(db.Float)
     created_at = db.Column(db.DateTime, server_default=func.now())   
     updated_at = db.Column(db.DateTime, server_default=func.now(), onupdate=func.now())
-    user_expenses = db.relationship('UserExpense', secondary=expenses, lazy='dynamic',backref=db.backref('expenses_author', lazy=True))
-    user_todos = db.relationship('UserTodo', secondary=todos, lazy='dynamic',backref=db.backref('todos_author', lazy=True))
+    user_expenses = db.relationship('UserExpense',  lazy=True,backref=db.backref('expenses_author'))
+    user_todos = db.relationship('UserTodo',lazy=True,backref=db.backref('todos_author'))
   
     @classmethod
     def validate_user(cls, user_data):
@@ -66,26 +67,19 @@ class User(db.Model):
         if len(request.form['email']) < 1:
             flash("Email cannot be blank!", 'email')
         if not EMAIL_REGEX.match(request.form['email']) and len(request.form['email']) > 0:    # test whether a field matches the pattern
+            is_valid = False
             flash("Invalid email address!", 'email')
-        if len(passwd) < 8:
+        if len(user_data["monthly_income"]) < 1:
             is_valid = False
-            flash("Password should be at least 8 characters.")
-        if not any(char.isdigit() for char in passwd): 
+            flash('Monthly income cannot be null','monthly_income')
+        if not user_data["monthly_income"].isdigit():
             is_valid = False
-            flash('Password should have at least one numeral')
-            
-        if not any(char.isupper() for char in passwd): 
+            flash('Monthly income must be a number','monthly_income')
+        if not PASSWORD_REGEX.match(request.form['password'] ):
             is_valid = False
-            flash('Password should have at least one uppercase letter')
-            
-        if not any(char.islower() for char in passwd): 
-            is_valid = False
-            flash('Password should have at least one lowercase letter')
-            
-        if not any(char in SpecialSym for char in passwd):
-            is_valid = False
-            flash('Password should have at least one of the symbols $@#')
-    
+            flash("Password must have at least 5 characters, one number, one uppercase character, one special symbol.",'password')
+
+
         if request.form['password'] != request.form['confirm_password']:
             is_valid = False
             flash("Password doesn't match", 'password')
@@ -101,21 +95,26 @@ class User(db.Model):
 
     @classmethod
     def validate_on_login(cls, user_data):
-        result = User.query.filter_by(email=user_data['email']).first_or_404(description="Email doesn't exists")
+      #  result = User.query.filter_by(email=user_data['email']).first_or_404(description="Email doesn't exists")
         is_valid = True
         if len(user_data['email']) < 1:
             is_valid = False
-            flash('Email cannot be blank')
-        if not bcrypt.check_password_hash(result.password, user_data['password']):
+            flash('Email cannot be blank','email')
+        if len(user_data['password']) <1:
             is_valid = False
-            flash('Invalid email or password.')
+            flash('Passoword cannot be blank','password')
+        if is_valid :
+            user = User.query.filter_by(email=user_data['email']).first()
+            if user:
+                if not bcrypt.check_password_hash(user.password, user_data['password']):
+                    is_valid = False
+                    flash('Invalid email or password.','login_error')
         return is_valid
 
 class Category(db.Model):
     __tablename__ = 'categories'
     id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String())
-    category_expenses = db.relationship('UserExpense', secondary=expenses, lazy='dynamic',backref=db.backref('expenses_category', lazy=True))
-    category_todos = db.relationship('UserTodo', secondary=todos, lazy='dynamic',backref=db.backref('todos_category', lazy=True))
+    category_expenses = db.relationship('UserExpense',  lazy=True,backref=db.backref('expenses_category'))
+    category_todos = db.relationship('UserTodo', lazy=True,backref=db.backref('todos_category'))
 
-    
