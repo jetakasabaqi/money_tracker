@@ -10,7 +10,35 @@ body{
   color: white;
   line-height: 1.5;
   font-family: 'Raleway', sans-serif;
+  font-size: 18px;
 }
+/****************/
+.nav-bar{
+
+} 
+  .navbar h3{
+    display: inline-block;
+  }
+  .navbar img{
+    width: 70px;
+    height: 70px;
+  }
+  .navbar a{
+    text-decoration: none;
+    color: white;
+  }
+  .navbar .links{
+    display: flex;
+    justify-content: space-between;
+  }
+  .navbar ul{
+    list-style: none;
+  }
+  .navbar li{
+    display: inline-block;
+    margin-left: 25px;
+  }
+/*************/
 
 .signup-login content{
   display: flex;
