@@ -35,7 +35,7 @@
 							{% with messages = get_flashed_messages(category_filter=["email"])%}
 							{% if messages %}
 							{% for message in messages %}
-							<p class="errors-text">{{message}}</p>
+							<p >{{message}}</p>
 							{% endfor %}
 							{% endif %}
 							{% endwith %}
@@ -52,7 +52,7 @@
 							{% with messages = get_flashed_messages(category_filter=["monthly_income"])%}
 							{% if messages %}
 							{% for message in messages %}
-							<p  class="errors-text">{{message}}</p>
+							<p  >{{message}}</p>
 							{% endfor %}
 							{% endif %}
 							{% endwith %}
@@ -69,7 +69,7 @@
 							{% with messages = get_flashed_messages(category_filter=["password"])%}
 							{% if messages %}
 							{% for message in messages %}
-							<p  class="errors-text">{{message}}</p>
+							<p >{{message}}</p>
 							{% endfor %}
 							{% endif %}
 							{% endwith %}
