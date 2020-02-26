@@ -23,23 +23,23 @@
 			<div class="container">
 				<div class="accordion" id="addExpense">
 					<h3>Welcome {{logged_in_user.first_name}}. Ad your latest expense based on categories below: </h3>
-					{%for i in range(5)%}
+					{% for category in categories %}
 						<div class="card" style="width: 30rem;">
-						    <div class="card-header" id="{{'heading'+i|string}}">
+						    <div class="card-header" id="{{'heading'+category.id|string}}">
 						      	<h2 class="mb-0">
-						        	<button class="btn collapsed" type="button" data-toggle="collapse" data-target="{{'#collapse'+i|string}}"aria-expanded="false" aria-controls="{{'collapse'+i|string}}">
-						          	Add house expenses
+						        	<button class="btn collapsed" type="button" data-toggle="collapse" data-target="{{'#collapse'+category.id|string}}"aria-expanded="false" aria-controls="{{'collapse'+category.id|string}}">
+						          	Add {{category.name}} expense
 						        	</button>
 						      	</h2>
 						    </div>
-						    <div id="{{'collapse'+i|string}}" class="collapse" aria-labelledby="{{'heading'+i|string}}" data-parent="#addExpense">
+						    <div id="{{'collapse'+category.id|string}}" class="collapse" aria-labelledby="{{'heading'+category.id|string}}" data-parent="#addExpense">
 						      	<div class="card-body">
-						        	<form action="" method="">
-						        		<input type="hidden" name="category_name" value="{categry['id']}">
+						        	<form action="/create_expense" method="POST">
+						        		<input type="hidden" name="category_id" value="{{category.id}}">
 						        		<input type="text" name="expense_name" class="form-control" placeholder="name">
 						        		<input type="text" name="expense_price" class="form-control" placeholder="price $">
 						        		<input type="submit" name="Add" value="Add" class="btn">
-						        		<a href="" class="btn">Cancel</a>
+						        		<a href="/home" class="btn">Cancel</a>
 						        	</form>'
 						      	</div>
 						    </div>
@@ -58,17 +58,17 @@
 					    	</tr>
 					  	</thead>
 					  	<tbody>
-					  		{%for i in range(4) %}
+					  		{%for expense in expenses %}
 						    	<tr>
-							      	<td>Mark</td>
-							      	<td>Otto</td>
-							      	<td>@mdo</td>
-							      	<td>18$</td>
+							      	<td>{{expense.year}}/{{expense.month}}/{{expense.day}}</td>
+							      	<td>{{expense.category_name}}</td>
+							      	<td>{{expense.content}}</td>
+							      	<td>{{expense.amount}}$</td>
 						    	</tr>
 							{%endfor%}
 					   </tbody>
 					</table>
-					<a href="" class="btn">View all</a>
+					<a href="/my-expenses" class="btn">View all</a>
 				</div>
 			</div>
 		{% include 'includes/footer.html' %}
