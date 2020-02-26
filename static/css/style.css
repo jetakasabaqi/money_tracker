@@ -61,7 +61,7 @@ body{
     color: white;
   }
 .card-body{
-  background: #eae7e7;
+  background: #74b49b;
 }
   .card-body .form-control{
     width: 300px;
@@ -71,9 +71,29 @@ body{
   .card-body form{
     display: inline-block;
   }
-  .home .table{
+  .card-body .btn{
+    background: #207561;
+    color: white;
+  }
+  .home table{
     width: 100%;
     display: inline-block;
+  }
+.table-content{
+  text-align: center;
+}
+  .home table{
+    text-align: left;
+  }
+  .home .table-content a{
+    background-color:#74b49b;
+    color: white;
+  }
+  .home th{
+    width: 30%;
+  }
+  .home td{
+    width: 30%;
   }
 
 /****************/

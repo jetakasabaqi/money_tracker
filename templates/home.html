@@ -38,8 +38,8 @@
 						        		<input type="hidden" name="category_name" value="{categry['id']}">
 						        		<input type="text" name="expense_name" class="form-control" placeholder="name">
 						        		<input type="text" name="expense_price" class="form-control" placeholder="price $">
-						        		<input type="submit" name="Add" value="Add" class="btn btn-danger">
-						        		<a href="" class="btn btn-warning">Cancel</a>
+						        		<input type="submit" name="Add" value="Add" class="btn">
+						        		<a href="" class="btn">Cancel</a>
 						        	</form>'
 						      	</div>
 						    </div>
@@ -58,7 +58,7 @@
 					    	</tr>
 					  	</thead>
 					  	<tbody>
-					  		{%for expense in expenses %}
+					  		{%for i in range(4) %}
 						    	<tr>
 							      	<td>Mark</td>
 							      	<td>Otto</td>
@@ -68,6 +68,7 @@
 							{%endfor%}
 					   </tbody>
 					</table>
+					<a href="" class="btn">View all</a>
 				</div>
 			</div>
 		{% include 'includes/footer.html' %}
