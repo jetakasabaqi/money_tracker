@@ -23,7 +23,9 @@ def register():
 
 def login():
     if 'user_id' in session:
-        return redirect("/home")
+        logged_in_user = User.query.filter_by(id=session['user_id']).first_or_404("Not logged in")
+        expenses = UserExpense.query.filter(UserExpense.user_id==session['user_id']).all()
+        return render_template("user_expenses.html", expenses=expenses, logged_in_user=logged_in_user)
     else:
         return render_template("login.html")
 

@@ -20,7 +20,7 @@
 <body>
 	<div class="wrapper home">
 		{% include 'includes/header.html' %}
-			<div class="content">
+			<div class="container">
 				<div class="accordion" id="addExpense">
 					<h3>Welcome {{logged_in_user.first_name}}. Ad your latest expense based on categories below: </h3>
 					{%for i in range(5)%}
@@ -46,26 +46,29 @@
 						</div>
 					{%endfor%}
 				</div>
-				<table class="table table-hover table-dark">
-				  	<thead>
-				    	<tr>
-				      		<th scope="col">#</th>
-						    <th scope="col">First</th>
-						    <th scope="col">Last</th>
-						    <th scope="col">Handle</th>
-				    	</tr>
-				  	</thead>
-				  	<tbody>
-				  		{%for expense in expenses %}
+				<div class="table-content">
+					<h3>These are your latest expenses of this month:</h3>
+					<table class="table table-hover table-dark">
+					  	<thead>
 					    	<tr>
-						      	<th scope="row">1</th>
-						      	<td>Mark</td>
-						      	<td>Otto</td>
-						      	<td>@mdo</td>
+							    <th scope="col">Date</th>
+							    <th scope="col">Category</th>
+							    <th scope="col">Expense</th>
+							    <th scope="col">Price</th>
 					    	</tr>
-						{%endfor%}
-				   </tbody>
-				</table>
+					  	</thead>
+					  	<tbody>
+					  		{%for expense in expenses %}
+						    	<tr>
+							      	<td>Mark</td>
+							      	<td>Otto</td>
+							      	<td>@mdo</td>
+							      	<td>18$</td>
+						    	</tr>
+							{%endfor%}
+					   </tbody>
+					</table>
+				</div>
 			</div>
 		{% include 'includes/footer.html' %}
 	</div>

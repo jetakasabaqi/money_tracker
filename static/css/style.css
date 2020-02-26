@@ -44,10 +44,13 @@ body{
   flex-direction: column;
   justify-content: space-between;
 }*/
+  .home .container{
+    display: flex;
+    justify-content: space-between;
+  }
 #addExpense{
   width: 50%;
   /*margin: 15px;*/
-  
   display: inline-block;
 }
 .card-header{
@@ -69,7 +72,7 @@ body{
     display: inline-block;
   }
   .home .table{
-    width: 50%;
+    width: 100%;
     display: inline-block;
   }
 
