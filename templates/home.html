@@ -11,32 +11,59 @@
 	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
     <script src="//code.jquery.com/jquery-1.11.0.min.js"></script>
     <script src="http://netdna.bootstrapcdn.com/bootstrap/3.1.1/js/bootstrap.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+	<script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
+	<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+	<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
 	<link rel="stylesheet" type="text/css" href="{{url_for('static',filename = 'css/style.css')}}">
 </head>
 <body>
 	<div class="wrapper home">
 		{% include 'includes/header.html' %}
-		<div class="accordion" id="accordionExample">
-			<div class="card">
-			    <div class="card-header" id="headingThree">
-			      	<h2 class="mb-0">
-			        	<button class="btn btn-danger collapsed" type="button" data-toggle="collapse" data-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
-			          	Add house expenses
-			        	</button>
-			      	</h2>
-			    </div>
-			    <div id="collapseThree" class="collapse" aria-labelledby="headingThree" data-parent="#accordionExample">
-			      	<div class="card-body">
-			        	<form action="" method="">
-			        		<input type="text" name="">
-			        	</form>
-			        	texttt
-			        	<p>shaduagh</p>
-			      	</div>
-			    </div>
-			</div>
-		</div>
+			<div class="accordion" id="addExpense">
+				<h3>Wellcome {Jeta}. Ad your latest expense based on categories below: </h3>
+				{%for i in range(5)%}
+					<div class="card" style="width: 30rem;">
+					    <div class="card-header" id="{{'heading'+i|string}}">
+					      	<h2 class="mb-0">
+					        	<button class="btn collapsed" type="button" data-toggle="collapse" data-target="{{'#collapse'+i|string}}"aria-expanded="false" aria-controls="{{'collapse'+i|string}}">
+					          	Add house expenses
+					        	</button>
+					      	</h2>
+					    </div>
+					    <div id="{{'collapse'+i|string}}" class="collapse" aria-labelledby="{{'heading'+i|string}}" data-parent="#addExpense">
+					      	<div class="card-body">
+					        	<form action="" method="">
+					        		<input type="hidden" name="category_name" value="{categry['id']}">
+					        		<input type="text" name="expense_name" class="form-control" placeholder="name">
+					        		<input type="text" name="expense_price" class="form-control" placeholder="price $">
+					        		<input type="submit" name="Add" value="Add" class="btn btn-danger">
+					        		<a href="" class="btn btn-warning">Cancel</a>
+					        	</form>'
+					      	</div>
+					    </div>
+					</div>
+				{%endfor%}
 
+			</div>
+				<table class="table table-hover table-dark">
+				  <thead>
+				    <tr>
+				      <th scope="col">#</th>
+				      <th scope="col">First</th>
+				      <th scope="col">Last</th>
+				      <th scope="col">Handle</th>
+				    </tr>
+				  </thead>
+				  <tbody>
+				    <tr>
+				      <th scope="row">1</th>
+				      <td>Mark</td>
+				      <td>Otto</td>
+				      <td>@mdo</td>
+				    </tr>
+				   </tbody>
+				 </table>
 		{% include 'includes/footer.html' %}
 	</div>
 </body>

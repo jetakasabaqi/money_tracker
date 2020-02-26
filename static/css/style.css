@@ -68,8 +68,25 @@ body{
     color: red;
     font-size: 11px;
   }
-
-
+/**************************/
+.card-header{
+  background: hsl(216, 53%, 9%);
+}
+  .card-header .btn{
+    background-color:#74b49b;
+    color: white;
+  }
+.card-body{
+  background: #eae7e7;
+}
+  .card-body .form-control{
+    width: 300px;
+    margin: 15px 0;
+    /*display: inline-block;*/
+  }
+  .card-body form{
+    display: inline-block;
+  }
 
 /****************/
 
