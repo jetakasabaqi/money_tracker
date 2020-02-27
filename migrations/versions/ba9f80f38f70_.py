@@ -1,8 +1,8 @@
 """empty message
 
-Revision ID: e4e692e4558d
+Revision ID: ba9f80f38f70
 Revises: 
-Create Date: 2020-02-22 10:35:41.798765
+Create Date: 2020-02-27 13:36:15.937769
 
 """
 from alembic import op
@@ -10,7 +10,7 @@ import sqlalchemy as sa
 
 
 # revision identifiers, used by Alembic.
-revision = 'e4e692e4558d'
+revision = 'ba9f80f38f70'
 down_revision = None
 branch_labels = None
 depends_on = None
@@ -35,15 +35,16 @@ def upgrade():
     sa.PrimaryKeyConstraint('id')
     )
     op.create_table('expenses',
-    sa.Column('user_id', sa.Integer(), nullable=False),
-    sa.Column('category_id', sa.Integer(), nullable=False),
+    sa.Column('id', sa.Integer(), nullable=False),
+    sa.Column('user_id', sa.Integer(), nullable=True),
+    sa.Column('category_id', sa.Integer(), nullable=True),
     sa.Column('amount', sa.Float(), nullable=True),
     sa.Column('content', sa.String(), nullable=True),
     sa.Column('created_at', sa.DateTime(), server_default=sa.text('(CURRENT_TIMESTAMP)'), nullable=True),
     sa.Column('updated_at', sa.DateTime(), server_default=sa.text('(CURRENT_TIMESTAMP)'), nullable=True),
     sa.ForeignKeyConstraint(['category_id'], ['categories.id'], onupdate='cascade', ondelete='cascade'),
     sa.ForeignKeyConstraint(['user_id'], ['users.id'], onupdate='cascade', ondelete='cascade'),
-    sa.PrimaryKeyConstraint('user_id', 'category_id')
+    sa.PrimaryKeyConstraint('id')
     )
     op.create_table('todos',
     sa.Column('user_id', sa.Integer(), nullable=False),

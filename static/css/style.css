@@ -10,7 +10,36 @@ body{
   color: white;
   line-height: 1.5;
   font-family: 'Raleway', sans-serif;
+  font-size: 18px;
 }
+/****************/
+.nav-bar{
+
+} 
+  .navbar h3{
+    display: inline-block;
+  }
+  .navbar img{
+    width: 70px;
+    height: 70px;
+  }
+  .navbar a{
+    text-decoration: none;
+    color: white;
+  }
+  .navbar .links{
+    display: flex;
+    justify-content: space-between;
+  }
+  .navbar ul{
+    list-style: none;
+  }
+  .navbar li{
+    display: inline-block;
+    margin-left: 25px;
+  }
+
+/****************/
 
 .signup-login content{
   display: flex;
@@ -40,8 +69,63 @@ body{
     color: red;
     font-size: 11px;
   }
-
-
+/*************/
+/*.home{
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}*/
+  .home .container{
+    display: flex;
+    justify-content: space-between;
+  }
+#addExpense{
+  width: 50%;
+  /*margin: 15px;*/
+  display: inline-block;
+}
+.card-header{
+  background: hsl(216, 53%, 9%);
+}
+  .card-header .btn{
+    background-color:#74b49b;
+    color: white;
+  }
+.card-body{
+  background: #74b49b;
+}
+  .card-body .form-control{
+    width: 300px;
+    margin: 15px 0;
+    /*display: inline-block;*/
+  }
+  .card-body form{
+    display: inline-block;
+  }
+  .card-body .btn{
+    background: #207561;
+    color: white;
+  }
+  .home table{
+    width: 100%;
+    display: inline-block;
+  }
+.table-content{
+  text-align: center;
+}
+  .home table{
+    text-align: left;
+  }
+  .home .table-content a{
+    background-color:#74b49b;
+    color: white;
+  }
+  .home th{
+    width: 30%;
+  }
+  .home td{
+    width: 30%;
+  }
 
 /****************/
 

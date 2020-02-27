@@ -10,8 +10,9 @@ PASSWORD_REGEX = re.compile(r'^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*#?&])[A-
 SpecialSym =['$', '@', '#', '%'] 
 
 expenses = db.Table('expenses', 
-        db.Column('user_id', db.Integer, db.ForeignKey('users.id', ondelete='cascade', onupdate='cascade'), primary_key=True), 
-        db.Column('category_id', db.Integer, db.ForeignKey('categories.id', ondelete='cascade', onupdate='cascade'), primary_key=True),
+        db.Column('id', db.Integer, primary_key=True),
+        db.Column('user_id', db.Integer, db.ForeignKey('users.id', ondelete='cascade', onupdate='cascade')), 
+        db.Column('category_id', db.Integer, db.ForeignKey('categories.id', ondelete='cascade', onupdate='cascade')),
         db.Column('amount', db.Float),
         db.Column('content', db.String),
         db.Column('created_at', db.DateTime, server_default=func.now()),
