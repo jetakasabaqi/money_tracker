@@ -39,6 +39,10 @@ body{
     margin-left: 25px;
   }
 
+  .active{
+    font-weight: bold;
+  }
+
 /****************/
 
 .signup-login content{
