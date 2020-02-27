@@ -74,3 +74,8 @@ def create_expense():
     db.session.add(new_expense)
     db.session.commit()
     return redirect('/home')
+
+def viewAllExpences():
+    return render_template('viewAll.html')
+def editExpense():
+    return render_template('editExpense.html')
