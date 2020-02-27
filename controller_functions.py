@@ -29,7 +29,7 @@ def login():
 
 def home():
     if 'user_id' in session:
-        logged_in_user = User.query.filter_by(id=session['user_id']).first_or_404("Not logged in")
+        logged_in_user = User.query.filter_by(id=session['user_id']).first()
         categories = Category.query.all()
         sql = text("SELECT e.*, c.name as category_name, strftime('%Y', e.updated_at) AS year, strftime('%m', e.updated_at) AS month, strftime('%d', e.updated_at) AS day FROM expenses e JOIN categories c ON e.category_id = c.id WHERE e.user_id = "+str(session['user_id'])+" ORDER BY e.updated_at DESC LIMIT 5")
         result = db.engine.execute(sql)
