@@ -1,6 +1,6 @@
 from flask import render_template, request, redirect, session
 from config import app, db
-from models import User, Category, UserExpense, UserTodo
+from models import User, Category, UserExpense, UserTodo, expenses
 from flask_bcrypt import Bcrypt
 from datetime import datetime
 app.secret_key = 'secret'
@@ -74,3 +74,51 @@ def create_expense():
     db.session.add(new_expense)
     db.session.commit()
     return redirect('/home')
+
+def viewAllExpences():
+    logged_in_user = User.query.filter_by(id = session['user_id']).first_or_404("Not logged in")
+    expenses = UserExpense.query.filter(UserExpense.user_id == session['user_id']).all()
+    total =0
+    today_date = datetime.now()
+
+    for ex in expenses:
+        total+= ex.amount
+
+    return render_template('viewAll.html', expenses = expenses, total = total, selected = str(today_date.month))
+def editExpense(id):
+    expense = UserExpense.query.filter_by(id = id).first()
+
+    return render_template('editExpense.html', expense = expense)
+
+def editExpenseForm():
+    print(request.form['expense_id'])
+    expense = UserExpense.query.filter_by(id = request.form['expense_id']).first()
+    expense.content = request.form['expense_name']
+    expense.amount = request.form['expense_price']
+    print(expense)
+    db.session.commit()
+
+    return redirect('/view_all')
+def deleteExpense(ex_id):
+    logged_in_user = User.query.filter_by(id=session['user_id']).first()
+    expenses = logged_in_user.user_expenses
+    expense = UserExpense.query.filter_by(id=ex_id).first()
+    expenses.remove(expense)
+    db.session.commit()
+    return redirect('/view_all')
+def filterExpense():
+    logged_in_user = User.query.filter_by(id=session['user_id']).first()
+    expenses = logged_in_user.user_expenses
+    expenses_of_this_month = []
+    selected = request.form['active_months']
+    print(request.form['active_months'])
+    for exp in expenses:
+        month = exp.created_at.month
+        print('month', month)
+        print('form', request.form['active_months'])
+        if(str(month) == selected):
+            print('true')
+            expenses_of_this_month.append(exp)
+    print(expenses_of_this_month)
+    print(selected)
+    return render_template('viewAll.html', expenses = expenses_of_this_month, selected =  selected)
