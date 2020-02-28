@@ -122,3 +122,6 @@ def filterExpense():
     print(expenses_of_this_month)
     print(selected)
     return render_template('viewAll.html', expenses = expenses_of_this_month, selected =  selected)
+
+def toDo():
+    return render_template('toDoList.html')

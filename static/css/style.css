@@ -229,6 +229,15 @@ body{
     margin-right: 100px;
   }
 
+/*********To Do List***********/
+.toDo .form-control{
+  width: 350px;
+  display: inline-block;
+}
+.toDo table td{
+  padding: 10px;
+  text-decoration: line-through;
+}
 /********************/
 footer{
   background: hsl(216, 53%, 9%);

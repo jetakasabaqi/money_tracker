@@ -1,7 +1,7 @@
 from flask import Flask
 from config import app
 from controller_functions import (landing_page, register, login, on_register, on_login, logout,
-home, my_expenses, create_expense, viewAllExpences,filterExpense,editExpense,deleteExpense,editExpenseForm)
+home, my_expenses, create_expense, viewAllExpences,filterExpense,editExpense,deleteExpense,editExpenseForm,toDo)
 
 app.add_url_rule("/", view_func=landing_page)
 app.add_url_rule("/register", view_func=register)
@@ -17,6 +17,8 @@ app.add_url_rule("/edit/<id>", view_func=editExpense)
 app.add_url_rule("/edit-expense", view_func=editExpenseForm, methods = ['POST'])
 app.add_url_rule("/delete/<ex_id>", view_func=deleteExpense)
 app.add_url_rule("/filter-expense", view_func=filterExpense, methods = ['POST'])
+app.add_url_rule("/toDoList", view_func=toDo)
+
 
 
 
