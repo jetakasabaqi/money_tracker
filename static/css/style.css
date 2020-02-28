@@ -173,11 +173,18 @@ body{
     text-align: left;
     width: 50%;
     height: 420px;
-    overflow-y: scroll;
+
+    box-sizing: border-box;
+    overflow-y: auto;
   }
 #last-table-row{
   background: #32bea6;
-  position: static;
+
+  padding: 5px 10px;
+  /* margin-top: 0; */
+  width: 46%;
+  text-align: center;
+
 }
 /*******Vizualization**********/
 .vizualization{

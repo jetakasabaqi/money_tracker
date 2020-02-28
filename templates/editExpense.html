@@ -14,11 +14,12 @@
 <body>
 	<div class="wrapper editExpense">
 		{% include 'includes/header.html' %}
-			<form action="" method="">
-        		<input type="text" name="expense_name" class="form-control" placeholder="Rent (actuall name of the expense here)">
-        		<input type="text" name="expense_price" class="form-control" placeholder="18$ (actuall price of epxense here)"><br>
+			<form action="/edit-expense" method="POST">
+        		<input type="text" name="expense_name" class="form-control" value="{{expense.content}}">
+				<input type="text" name="expense_price" class="form-control" value={{expense.amount}}><br>
+				<input type="text" name="expense_id" class="form-control" value={{expense.id}} hidden><br>
         		<input type="submit" name="Add" value="Edit" class="btn" id="edit-btn">
-        		<a href="" class="btn">Cancel</a>
+        		<a href="/view-all" class="btn">Cancel</a>
         	</form>'
 		{% include 'includes/footer.html' %}
 	</div>

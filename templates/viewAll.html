@@ -21,11 +21,20 @@
 	<div class="wrapper viewAll">
 		{% include 'includes/header.html' %}
 		<div class="content">
-			<form action="" method="" class="searchMonth">
+			<form action="/filter-expense" method="POST" class="searchMonth">
 				<select name="active_months" class="form-control">
-					{%for i in range (7)%}
-						<option value="">February, 2020</option>
-					{%endfor%}
+						<option {%if selected == '1':%}  selected  {%endif%} value="1">January, 2020</option>
+						<option {%if selected == '2':%}  selected {%endif%} value="2">February, 2020</option>
+						<option {%if selected == '3':%}  selected {%endif%} value="3">March, 2020</option>
+						<option {%if selected == '4':%}  selected {%endif%} value="4">April, 2020</option>
+						<option {%if selected == '5':%}  selected {%endif%} value="5">May, 2020</option>
+						<option {%if selected == '6':%}  selected {%endif%} value="6">June, 2020</option>
+						<option {%if selected == '7':%}  selected {%endif%} value="7">July, 2020</option>
+						<option {%if selected == '8':%}  selected {%endif%} value="8">August, 2020</option>
+						<option {%if selected == '9':%}  selected {%endif%} value="9">September, 2020</option>
+						<option {%if selected == '10':%} selected  {%endif%} value="10">October, 2020</option>
+						<option {%if selected == '11':%} selected  {%endif%} value="11">November, 2020</option>
+						<option {%if selected == '12':%} selected  {%endif%} value="12">December, 2020</option>
 				</select>
 				<input type="submit" name="submit" value="Search" class="btn">
 			</form>
@@ -40,30 +49,26 @@
 				    	</tr>
 				  	</thead>
 				  	<tbody>
-				  		{%for i in range(13)%}
+				  		{%for e in expenses%}
 				  			<tr>
-				  				<td>13/12/2020</td>
-				  				<td>Home</td>
-				  				<td>Rent</td>
-				  				<td>500 $</td>
+				  				<td>{{e.created_at}}</td>
+				  				<td>{{e.category_id}}</td>
+				  				<td>{{e.content}}</td>
+				  				<td>{{e.amount}} $</td>
 				  				<td>
-							    	<a href=""><img title="edit" src="{{url_for('static',filename = 'img/edit.png')}}"></a>
+							    	<a href="/edit/{{e.id}}"><img title="edit" src="{{url_for('static',filename = 'img/edit.png')}}"></a>
 							    </td>
 							    <td>
-							    	<a href=""><img title="delete" src="{{url_for('static',filename = 'img/close.png')}}"></a>
+							    	<a href="/delete/{{e.id}}"><img title="delete" src="{{url_for('static',filename = 'img/close.png')}}"></a>
 							    </td>
 				  			</tr>
 				  		{%endfor%}
-						<tr id="last-table-row">
-							<td>Total Month expenses:</td>
-							<td></td>
-							<td></td>
-							<td>8000$</td>
-							<td></td>
-							<td></td>
-						</tr>
+					
 				   </tbody>
 				</table>
+				<div id="last-table-row" style="position: absolute; ">
+					<p colspan="5">Total Month expenses: {{total}}$</p>
+				</div>
 			</div>
 			<div class="vizualization">
 				<h1>Colors for pie chart:</h1>
