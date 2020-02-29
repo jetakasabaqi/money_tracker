@@ -1,5 +1,36 @@
-{% include 'includes/header.html' %}
-
-
-
-{% include 'includes/footer.html' %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="icon" href="{{url_for('static',filename = 'img/coin.png')}}">
+	<title>MoneyTracker</title>
+	<link href="https://fonts.googleapis.com/css?family=Open+Sans|Sriracha|Raleway&display=swap" rel="stylesheet">
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+	<link rel="stylesheet" type="text/css" href="{{url_for('static',filename = 'css/style.css')}}">
+</head>
+	<body>
+		<div class="wrapper landingPage">
+			<div class="navbar">
+			    <div class="logo">
+			        <img src="{{url_for('static',filename = 'img/coin.png')}}">
+			        <h3>MoneyTracker</h3>
+			    </div>
+				<a href="/login" class="">Log in</a>
+			</div>
+			<div class="col-xs-1" align="center">
+				<img src="{{url_for('static',filename = 'img/desk.gif')}}">
+				<h1>Welcome</h1>
+				<p id="landing-description">Log everyday expenses.
+											Designed to group your expenses into different categories.
+											You can add new expense, see them in a list.
+											See every months report in a colorful chart.
+											In case you don't remeber what to buy... use the todo list.</p>
+				<a href="register" class="btn">Get started for free</a>
+			</div>
+			{% include 'includes/footer.html' %}
+		</div>
+	</body>
+</html>
