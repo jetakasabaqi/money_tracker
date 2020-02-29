@@ -15,10 +15,10 @@
 		{% include 'includes/header.html' %}
 		<div class="container">
 			<h4>Add an expense to your To Do List. When you press done they will automatically be added to your expences.</h4>
-			<form action="" method="POST">
-        		<select name="" class="form-control">
-        			{%for i in range(7)%}
-        				<option value="">category</option>
+			<form action="/create-todo" method="POST">
+        		<select name="category" class="form-control">
+        			{% for category in categories %}
+        				<option value="{{category.id}}">{{category.name}}</option>
         			{%endfor%}
         		</select>
         		<input type="text" name="expense_name" class="form-control" placeholder="name">
@@ -27,25 +27,29 @@
         	</form>
         	<h4>This is your To Do List:</h4>
         	<table>
-        		{%for i in range(7)%}
+        		{%for todo in all_todos%}
 	        		<tr>
 	        			<td>
-	        				{%if true:%}
-	        				<a href="">
+	        				{% if todo.is_done == False: %}
+	        				<a href="/check-todo/{{todo.id}}">
 	        					<img src="{{url_for('static',filename = 'img/unchecked.png')}}">
 	        				</a>
-	        				{%else:%}
-	        				<a href="">
+	        				{% else: %}
+	        				<a href="/uncheck-todo/{{todo.id}}">
 	        					<img src="{{url_for('static',filename = 'img/checked.png')}}">
 	        				</a>
-	        				{%endif%}
+	        				{% endif %}
 	        		    </td>
-	        			<td>Buy cat and dog food, 19$</td>
+						{% if todo.is_done == False: %}
+	        			<td id="unchecked">{{todo.content}}, {{todo.amount}}$</td>
+						{% else: %}
+						<td id="checked">{{todo.content}}, {{todo.amount}}$</td>
+						{% endif %}
 	        			<td>
 					    	<a href="#"><img title="edit" src="{{url_for('static',filename = 'img/edit.png')}}"></a>
 					    </td>
 					    <td>
-					    	<a href="#"><img title="delete" src="{{url_for('static',filename = 'img/close.png')}}"></a>
+					    	<a href="/destroy-todo/{{todo.id}}"><img title="delete" src="{{url_for('static',filename = 'img/close.png')}}"></a>
 					    </td>
 	        		</tr>
         		{%endfor%}
@@ -53,5 +57,8 @@
 		</div>
 		{% include 'includes/footer.html' %}
 	</div>
+	<script>
+		
+	</script>
 </body>
 </html>

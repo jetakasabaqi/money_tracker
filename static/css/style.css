@@ -235,8 +235,13 @@ body{
   display: inline-block;
 }
 .toDo table td{
-  padding: 10px;
+  padding: 10px;  
+}
+#checked {
   text-decoration: line-through;
+}
+#unchecked {
+  text-decoration: none;
 }
 /********************/
 footer{
