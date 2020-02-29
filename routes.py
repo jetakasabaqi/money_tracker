@@ -2,7 +2,7 @@ from flask import Flask
 from config import app
 from controller_functions import (landing_page, register, login, on_register, on_login, logout,
 home, create_expense, viewAllExpences, filterExpense, editExpense, deleteExpense, editExpenseForm,
-todo, create_todo, checkToDo, uncheckToDo, destroyToDo)
+todo, create_todo, checkToDo, uncheckToDo, destroyToDo, editToDo)
 
 app.add_url_rule("/", view_func=landing_page)
 app.add_url_rule("/register", view_func=register)
@@ -22,6 +22,7 @@ app.add_url_rule("/create-todo", view_func=create_todo, methods=['POST'])
 app.add_url_rule("/check-todo/<int:todo_id>", view_func=checkToDo)
 app.add_url_rule("/uncheck-todo/<int:todo_id>", view_func=uncheckToDo)
 app.add_url_rule("/destroy-todo/<int:todo_id>", view_func=destroyToDo)
+app.add_url_rule("/edit-todo/<int:todo_id>", view_func=editToDo, methods=['POST'])
 
 
 

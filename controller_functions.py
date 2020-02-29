@@ -133,10 +133,7 @@ def create_todo():
 
 def checkToDo(todo_id):
     todo = UserTodo.query.filter_by(id = todo_id).first()
-    todo.is_done = True
-    # totalList = db.session.query(UserExpense.amount, func.sum(UserExpense.amount)).group_by(UserExpense.amount).all()
-    # total = UserExpense.query.with_entities(func.sum(UserExpense.amount)).first()
-    
+    todo.is_done = True    
     name = todo.content
     amount = todo.amount
     category_id = todo.category_id
@@ -158,6 +155,14 @@ def destroyToDo(todo_id):
     todos = logged_in_user.user_todos
     todo = UserTodo.query.filter_by(id = todo_id).first()
     todos.remove(todo)
+    db.session.commit()
+    return redirect('/toDoList')
+
+def editToDo(todo_id):
+    todo = UserTodo.query.filter_by(id = todo_id).first()
+    todo.category_id = request.form.get('category')
+    todo.content = request.form.get('expense_name')
+    todo.amount = request.form.get('expense_price')
     db.session.commit()
     return redirect('/toDoList')
     
