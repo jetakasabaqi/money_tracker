@@ -17,6 +17,41 @@
 	<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
 	<link rel="stylesheet" type="text/css" href="{{url_for('static',filename = 'css/style.css')}}">
 </head>
+<script>
+	window.onload = function () {
+	
+	var options = {
+		title: {
+			text: "Desktop OS Market Share in 2017"
+		},
+		subtitles: [{
+			text: "As of November, 2017"
+		}],
+		animationEnabled: true,
+		data: [{
+			type: "pie",
+			startAngle: 40,
+			toolTipContent: "<b>{label}</b>: {y}%",
+			showInLegend: "true",
+			legendText: "{label}",
+			indexLabelFontSize: 16,
+			indexLabel: "{label} - {y}%",
+			dataPoints: [
+				{ y: 48.36, label: "Windows 7" },
+				{ y: 26.85, label: "Windows 10" },
+				{ y: 1.49, label: "Windows 8" },
+				{ y: 6.98, label: "Windows XP" },
+				{ y: 6.53, label: "Windows 8.1" },
+				{ y: 2.45, label: "Linux" },
+				{ y: 3.32, label: "Mac OS X 10.12" },
+				{ y: 4.03, label: "Others" }
+			]
+		}]
+	};
+	$("#chartContainer").CanvasJSChart(options);
+	
+	}
+	</script>
 <body>
 	<div class="wrapper viewAll">
 		{% include 'includes/header.html' %}
@@ -38,6 +73,7 @@
 				</select>
 				<input type="submit" name="submit" value="Search" class="btn">
 			</form>
+			<div class="main">
 			<div class="table-content">
 				<table class="table table-hover table-dark">
 				  	<thead>
@@ -70,16 +106,20 @@
 					<p colspan="5">Total Month expenses: {{total}}$</p>
 				</div>
 			</div>
-			<div class="vizualization">
+			<div id="chartContainer"></div>
+			<!-- <div class="vizualization">
 				<h1>Colors for pie chart:</h1>
 				<div class="color1 box"></div>
 				<div class="color2 box"></div>
 				<div class="color3 box"></div>
 				<div class="color4 box"></div>
 				<div class="color5 box"></div>
-			</div>
+			</div> -->
 		</div>
+	</div>
 		{% include 'includes/footer.html' %}
 	</div>
 </body>
+<script src="https://canvasjs.com/assets/script/jquery-1.11.1.min.js"></script>
+<script src="https://canvasjs.com/assets/script/jquery.canvasjs.min.js"></script>
 </html>
