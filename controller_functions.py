@@ -78,6 +78,14 @@ def create_expense():
 def viewAllExpences():
     logged_in_user = User.query.filter_by(id = session['user_id']).first_or_404("Not logged in")
     expenses = UserExpense.query.filter(UserExpense.user_id == session['user_id']).all()
+    categories = Category.query.all()
+
+
+    for exp in expenses:
+        for cat in categories:
+            if exp.category_id == cat.id:
+                exp.category_name = cat.name
+
     total =0
     today_date = datetime.now()
 
