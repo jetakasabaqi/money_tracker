@@ -11,6 +11,7 @@ SpecialSym =['$', '@', '#', '%']
 
 expenses = db.Table('expenses', 
         db.Column('id', db.Integer, primary_key=True),
+        db.Column('todo_id', db.Integer, default=0),
         db.Column('user_id', db.Integer, db.ForeignKey('users.id', ondelete='cascade', onupdate='cascade')), 
         db.Column('category_id', db.Integer, db.ForeignKey('categories.id', ondelete='cascade', onupdate='cascade')),
         db.Column('amount', db.Float),
@@ -19,8 +20,9 @@ expenses = db.Table('expenses',
         db.Column('updated_at', db.DateTime, server_default=func.now(), onupdate=func.now()))
 
 todos = db.Table('todos', 
-        db.Column('user_id', db.Integer, db.ForeignKey('users.id', ondelete='cascade', onupdate='cascade'), primary_key=True), 
-        db.Column('category_id', db.Integer, db.ForeignKey('categories.id', ondelete='cascade', onupdate='cascade'), primary_key=True),
+        db.Column('id', db.Integer, primary_key=True),
+        db.Column('user_id', db.Integer, db.ForeignKey('users.id', ondelete='cascade', onupdate='cascade')), 
+        db.Column('category_id', db.Integer, db.ForeignKey('categories.id', ondelete='cascade', onupdate='cascade')),
         db.Column('amount', db.Float),
         db.Column('content', db.String(255)),
         db.Column('is_done', db.Boolean),

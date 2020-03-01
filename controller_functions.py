@@ -10,8 +10,7 @@ from sqlalchemy import text
 from sqlalchemy.orm import scoped_session, sessionmaker
 
 
-def landing_page():
-   
+def landing_page():  
     return render_template("index.html")
 
 def register():
@@ -19,7 +18,6 @@ def register():
         return render_template("home.html")
     else:
         return render_template("register.html")
-
 
 def login():
     if 'user_id' in session:
@@ -61,10 +59,6 @@ def logout():
     session.clear()
     return redirect('/')
 
-def my_expenses():
-    logged_in_user = User.query.filter_by(id=session['user_id']).first_or_404("Not logged in")
-    expenses = UserExpense.query.filter(UserExpense.user_id==session['user_id']).all()
-    return render_template("user_expenses.html", expenses=expenses, logged_in_user=logged_in_user)
 
 def create_expense():
     name = request.form.get("expense_name")
@@ -80,19 +74,15 @@ def viewAllExpences():
     expenses = UserExpense.query.filter(UserExpense.user_id == logged_in_user.id).all()
     categories = Category.query.all()
 
-
     for exp in expenses:
         for cat in categories:
             if exp.category_id == cat.id:
                 exp.category_name = cat.name
 
-    total =0
+    total = 0
     today_date = datetime.now()
 
-
-    # get category name and their percentage based on month 
-
-    
+    # get category name and their percentage based on month   
     print(expenses)
     sql = text(f"Select categories.name, count(categories.id) as times from expenses inner join categories on expenses.category_id = categories.id inner join users on expenses.user_id = users.id where users.id = {logged_in_user.id} group by categories.id ")
     result = db.engine.execute(sql)
@@ -106,8 +96,6 @@ def viewAllExpences():
         cat_and_percentage.append(data)
      
 
-
-
     print(cat_and_percentage)
 
 
@@ -115,9 +103,9 @@ def viewAllExpences():
         total+= ex.amount
 
     return render_template('viewAll.html', expenses = expenses, total = total, selected = str(today_date.month), categories_percentage = cat_and_percentage)
+
 def editExpense(id):
     expense = UserExpense.query.filter_by(id = id).first()
-
     return render_template('editExpense.html', expense = expense)
 
 def editExpenseForm():
@@ -127,8 +115,8 @@ def editExpenseForm():
     expense.amount = request.form['expense_price']
     print(expense)
     db.session.commit()
-
     return redirect('/view_all')
+
 def deleteExpense(ex_id):
     logged_in_user = User.query.filter_by(id=session['user_id']).first()
     expenses = logged_in_user.user_expenses
@@ -136,6 +124,7 @@ def deleteExpense(ex_id):
     expenses.remove(expense)
     db.session.commit()
     return redirect('/view_all')
+
 def filterExpense():
     logged_in_user = User.query.filter_by(id=session['user_id']).first()
     expenses = logged_in_user.user_expenses
@@ -191,3 +180,54 @@ def getMonthRange(month):
     func = switcher.get(month, "nothing")
 # Execute the function
     return func
+
+def todo():
+    categories = Category.query.all()
+    all_todos = UserTodo.query.filter(UserTodo.user_id==session['user_id']).all()
+    return render_template('toDoList.html', categories=categories, all_todos=all_todos)
+
+def create_todo():
+    category_id = request.form.get("category")
+    amount = request.form.get("expense_price")
+    content = request.form.get("expense_name")
+    new_todo = UserTodo(user_id=session['user_id'], category_id=category_id, amount=amount, content=content, is_done=False)
+    db.session.add(new_todo)
+    db.session.commit()
+    return redirect("/toDoList")
+
+def checkToDo(todo_id):
+    todo = UserTodo.query.filter_by(id = todo_id).first()
+    todo.is_done = True    
+    name = todo.content
+    amount = todo.amount
+    category_id = todo.category_id
+    new_expense = UserExpense(user_id=session['user_id'], todo_id=todo_id, category_id=category_id, amount=amount, content=name)
+    db.session.add(new_expense)
+    db.session.commit()
+    return redirect('/toDoList')
+
+def uncheckToDo(todo_id):
+    todo = UserTodo.query.filter_by(id = todo_id).first()
+    todo.is_done = False
+    expense = UserExpense.query.filter_by(todo_id=todo_id).first()
+    db.session.delete(expense)
+    db.session.commit()
+    return redirect('/toDoList')
+
+def destroyToDo(todo_id):
+    logged_in_user = User.query.filter_by(id=session['user_id']).first()
+    todos = logged_in_user.user_todos
+    todo = UserTodo.query.filter_by(id = todo_id).first()
+    todos.remove(todo)
+    db.session.commit()
+    return redirect('/toDoList')
+
+def editToDo(todo_id):
+    todo = UserTodo.query.filter_by(id = todo_id).first()
+    todo.category_id = request.form.get('category')
+    todo.content = request.form.get('expense_name')
+    todo.amount = request.form.get('expense_price')
+    db.session.commit()
+    return redirect('/toDoList')
+    
+
