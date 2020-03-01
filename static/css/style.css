@@ -1,9 +1,9 @@
 
-
 /*************************/
 body{
   background: hsl(218, 28%, 13%);
 }
+
 .wrapper{
   height: 100vh;
   background: hsl(218, 28%, 13%);
@@ -50,6 +50,9 @@ body{
   background-color: #4cdbc4;
   color: white;
   margin: 18px 0;
+}
+.col-xs-1{
+  margin-bottom: 2px;
 }
 
 /****************/
