@@ -17,6 +17,48 @@
 	<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
 	<link rel="stylesheet" type="text/css" href="{{url_for('static',filename = 'css/style.css')}}">
 </head>
+<script>
+	window.onload = function () {
+	
+	var chart = new CanvasJS.Chart("chartContainer", {
+		theme: "dark2",
+		exportFileName: "Doughnut Chart",
+		exportEnabled: true,
+		animationEnabled: true,
+		title:{
+			text: "Monthly Expense"
+		},
+		legend:{
+			cursor: "pointer",
+			itemclick: explodePie
+		},
+		data: [{
+			type: "doughnut",
+			innerRadius: 90,
+			showInLegend: true,
+			toolTipContent: "<b>{name}</b>: ${y} (#percent%)",
+			indexLabel: "{name} - #percent%",
+			dataPoints: [
+          {% for cat in categories_percentage %}
+           {  y:{{cat.percentage}}, name: "{{cat.name}}" },
+          {% endfor %} 
+           ]
+		}]
+	});
+	chart.render();
+	
+	function explodePie (e) {
+		if(typeof (e.dataSeries.dataPoints[e.dataPointIndex].exploded) === "undefined" || !e.dataSeries.dataPoints[e.dataPointIndex].exploded) {
+			e.dataSeries.dataPoints[e.dataPointIndex].exploded = true;
+		} else {
+			e.dataSeries.dataPoints[e.dataPointIndex].exploded = false;
+		}
+		e.chart.render();
+	}
+	
+	}
+	</script>
+
 <body>
 	<div class="wrapper viewAll">
 		{% include 'includes/header.html' %}
@@ -38,6 +80,7 @@
 				</select>
 				<input type="submit" name="submit" value="Search" class="btn">
 			</form>
+			<div class="main">
 			<div class="table-content">
 				<table class="table table-hover table-dark">
 				  	<thead>
@@ -52,7 +95,7 @@
 				  		{%for e in expenses%}
 				  			<tr>
 				  				<td>{{e.created_at}}</td>
-				  				<td>{{e.category_id}}</td>
+				  				<td>{{e.category_name}}</td>
 				  				<td>{{e.content}}</td>
 				  				<td>{{e.amount}} $</td>
 				  				<td>
@@ -70,16 +113,20 @@
 					<p colspan="5">Total Month expenses: {{total}}$</p>
 				</div>
 			</div>
-			<div class="vizualization">
+			<div id="chartContainer"></div>
+			<!-- <div class="vizualization">
 				<h1>Colors for pie chart:</h1>
 				<div class="color1 box"></div>
 				<div class="color2 box"></div>
 				<div class="color3 box"></div>
 				<div class="color4 box"></div>
 				<div class="color5 box"></div>
-			</div>
+			</div> -->
 		</div>
+	</div>
 		{% include 'includes/footer.html' %}
 	</div>
 </body>
+<script src="https://canvasjs.com/assets/script/jquery-1.11.1.min.js"></script>
+<script src="https://canvasjs.com/assets/script/jquery.canvasjs.min.js"></script>
 </html>
