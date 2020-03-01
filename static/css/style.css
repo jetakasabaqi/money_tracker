@@ -4,6 +4,17 @@ body{
   background: hsl(218, 28%, 13%);
 }
 
+div.text{
+
+    position: absolute;
+    top:270px;
+    left: 4px;
+    width: 50%;
+
+}
+div.text p {
+  font-style: bold;
+}
 .wrapper{
   height: 100vh;
   background: hsl(218, 28%, 13%);
@@ -53,6 +64,7 @@ body{
 }
 .col-xs-1{
   margin-bottom: 2px;
+  /* display: flex; */
 }
 
 /****************/
