@@ -290,7 +290,7 @@ footer{
   align-items: center;
   padding: 15px;
   border-radius: 30px;
-  /*position: fixed;*/
+  position: fixed;
   bottom: 0;
   width: 100%;
 }
