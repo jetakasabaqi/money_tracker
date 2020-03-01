@@ -20,33 +20,45 @@
 <script>
 	window.onload = function () {
 	
-	var options = {
-		title: {
-			text: "Expenses based on categories"
-		},
-		subtitles: [{
-			text: "As of February, 2020"
-		}],
+	var chart = new CanvasJS.Chart("chartContainer", {
+		theme: "dark2",
+		exportFileName: "Doughnut Chart",
+		exportEnabled: true,
 		animationEnabled: true,
+		title:{
+			text: "Monthly Expense"
+		},
+		legend:{
+			cursor: "pointer",
+			itemclick: explodePie
+		},
 		data: [{
-			type: "pie",
-			startAngle: 40,
-			toolTipContent: "<b>{label}</b>: {y}%",
-			showInLegend: "true",
-			legendText: "{label}",
-			indexLabelFontSize: 16,
-			indexLabel: "{label} - {y}%",
+			type: "doughnut",
+			innerRadius: 90,
+			showInLegend: true,
+			toolTipContent: "<b>{name}</b>: ${y} (#percent%)",
+			indexLabel: "{name} - #percent%",
 			dataPoints: [
           {% for cat in categories_percentage %}
-           {  y:{{cat.percentage}}, label: "{{cat.name}}" },
+           {  y:{{cat.percentage}}, name: "{{cat.name}}" },
           {% endfor %} 
            ]
 		}]
-	};
-	$("#chartContainer").CanvasJSChart(options);
+	});
+	chart.render();
+	
+	function explodePie (e) {
+		if(typeof (e.dataSeries.dataPoints[e.dataPointIndex].exploded) === "undefined" || !e.dataSeries.dataPoints[e.dataPointIndex].exploded) {
+			e.dataSeries.dataPoints[e.dataPointIndex].exploded = true;
+		} else {
+			e.dataSeries.dataPoints[e.dataPointIndex].exploded = false;
+		}
+		e.chart.render();
+	}
 	
 	}
 	</script>
+
 <body>
 	<div class="wrapper viewAll">
 		{% include 'includes/header.html' %}
