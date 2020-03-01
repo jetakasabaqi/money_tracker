@@ -176,9 +176,22 @@ body{
     color: white;
     background-color: #32bea6;
   }
+  .viewAll .main{
+    display: flex;
+  
+    
+  }
+  .viewAll form{
+    margin-bottom: 25px;
+  }
+  .viewAll .chartContainer{
+    
+    height: 420px;
+     width: 50%;
+  }
   .viewAll .table-content{
+    margin-right: 50px;
     display: inline-block;
-    margin-top: 25px;
     text-align: left;
     width: 50%;
     height: 420px;
@@ -186,6 +199,7 @@ body{
     box-sizing: border-box;
     overflow-y: auto;
   }
+ 
 #last-table-row{
   background: #32bea6;
 
