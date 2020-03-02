@@ -81,26 +81,22 @@ def viewAllExpences():
 
     total = 0
     today_date = datetime.now()
+    for ex in expenses:
+        total+= ex.amount
+    
+    date = getMonthRange(str(today_date.month))
+    sql2=text(f"select categories.name, sum(expenses.amount) as money_spent from expenses inner join categories on expenses.category_id = categories.id inner join users on expenses.user_id = users.id where users.id = {logged_in_user.id} and expenses.created_at BETWEEN '{date[0]}' and '{date[1]}' group by categories.name")
+    categories_by_name_and_percentage = db.engine.execute(sql2).fetchall()
 
-    # get category name and their percentage based on month   
-    print(expenses)
-    sql = text(f"Select categories.name, count(categories.id) as times from expenses inner join categories on expenses.category_id = categories.id inner join users on expenses.user_id = users.id where users.id = {logged_in_user.id} group by categories.id ")
-    result = db.engine.execute(sql)
-    categories_by_name_and_percentage = result.fetchall()
+
     cat_and_percentage = []
     for cat in categories_by_name_and_percentage:
         data = {
             'name': cat.name,
-            'percentage': cat.times /len(expenses)
+            'percentage': cat.money_spent /total
         }
         cat_and_percentage.append(data)
-     
 
-    print(cat_and_percentage)
-
-
-    for ex in expenses:
-        total+= ex.amount
 
     return render_template('viewAll.html', expenses = expenses, total = total, selected = str(today_date.month), categories_percentage = cat_and_percentage)
 
@@ -130,7 +126,7 @@ def filterExpense():
     expenses = logged_in_user.user_expenses
     expenses_of_this_month = []
     selected = request.form['active_months']
-   
+    total = 0
     for exp in expenses:
         month = exp.created_at.month
 
@@ -141,25 +137,26 @@ def filterExpense():
 
 
     for exp in expenses_of_this_month:
+        total+= exp.amount
         for cat in categories:
             if exp.category_id == cat.id:
                 exp.category_name = cat.name
 
     date = getMonthRange(selected)
-  
-    sql = text(f"Select categories.name, count(categories.id) as times from expenses inner join categories on expenses.category_id = categories.id inner join users on expenses.user_id = users.id where users.id = {logged_in_user.id} and expenses.created_at BETWEEN '{date[0]}' AND '{date[1]}' group by categories.id ")
- 
-    categories_by_name_and_percentage = db.engine.execute(sql).fetchall()
-   
+
+    sql2=text(f"select categories.name, sum(expenses.amount) as money_spent from expenses inner join categories on expenses.category_id = categories.id inner join users on expenses.user_id = users.id where users.id = {logged_in_user.id} and expenses.created_at BETWEEN '{date[0]}' and '{date[1]}' group by categories.name")
+    categories_by_name_and_percentage = db.engine.execute(sql2).fetchall()
+
+
     cat_and_percentage = []
     for cat in categories_by_name_and_percentage:
         data = {
             'name': cat.name,
-            'percentage': cat.times /len(expenses_of_this_month)
+            'percentage': cat.money_spent /total
         }
         cat_and_percentage.append(data)
     
-    return render_template('viewAll.html', expenses = expenses_of_this_month, selected =  selected,  categories_percentage = cat_and_percentage)
+    return render_template('viewAll.html', expenses = expenses_of_this_month, selected =  selected,  categories_percentage = cat_and_percentage,total = total)
 
 def getMonthRange(month):
     print(month)
