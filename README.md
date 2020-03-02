@@ -10,8 +10,15 @@ how much money is going into each category.
 Monery Tracker allow you to add a to buy list, and when a item is checked it goes automatically 
 into your expenses.
 
-Developers:
-    Front-End:  Diellza Aliu  github:  dielllza
-                Delvina Blakaj github: DEliteBook8570p
-    Back-End:   Donika Tomiqi github:  donikatomi
-                Jeta Kasabaq  github:  jetakasabaqi
+<h4>Developers </h4>
+<p>Front-End:</p>
+<ul>
+    <li>Diellza Aliu  github:  dielllza</li>
+    <li> Delvina Blakaj github: DEliteBook8570p</li>
+</ul>
+<p> Back-End: </p>
+<ul>
+    <li> Donika Tomiqi github:  donikatomi</li>
+    <li> Jeta Kasabaq  github:  jetakasabaqi</li>
+</ul>
+ 
