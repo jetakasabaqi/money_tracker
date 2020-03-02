@@ -19,6 +19,6 @@ into your expenses.
 <p> Back-End: </p>
 <ul>
     <li> Donika Tomiqi github:  donikatomi</li>
-    <li> Jeta Kasabaq  github:  jetakasabaqi</li>
+    <li> Jeta Kasabaqi  github:  jetakasabaqi</li>
 </ul>
  
