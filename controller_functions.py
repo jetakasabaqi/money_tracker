@@ -73,22 +73,21 @@ def viewAllExpences():
     logged_in_user = User.query.filter_by(id = session['user_id']).first_or_404("Not logged in")
     expenses = UserExpense.query.filter(UserExpense.user_id == logged_in_user.id).all()
     categories = Category.query.all()
+    expenses_of_this_month = []
     total = 0
     today_date = datetime.now()
+    
     for exp in expenses:
+        month = exp.created_at.month
+        if month == today_date.month:
+            expenses_of_this_month.append(exp)
+
+    for exp in expenses_of_this_month:
+        total+= exp.amount
         for cat in categories:
             if exp.category_id == cat.id:
                 exp.category_name = cat.name
-        month = exp.created_at.month
-        if month != today_date.month:
-            expenses.remove(exp)
 
-
-
-
-
-    for ex in expenses:
-        total+= ex.amount
     
     date = getMonthRange(str(today_date.month))
     sql2=text(f"select categories.name, sum(expenses.amount) as money_spent from expenses inner join categories on expenses.category_id = categories.id inner join users on expenses.user_id = users.id where users.id = {logged_in_user.id} and expenses.created_at BETWEEN '{date[0]}' and '{date[1]}' group by categories.name")
@@ -104,7 +103,7 @@ def viewAllExpences():
         cat_and_percentage.append(data)
 
 
-    return render_template('viewAll.html', expenses = expenses, total = total, selected = str(today_date.month), categories_percentage = cat_and_percentage)
+    return render_template('viewAll.html', expenses = expenses_of_this_month, total = total, selected = str(today_date.month), categories_percentage = cat_and_percentage)
 
 def editExpense(id):
     expense = UserExpense.query.filter_by(id = id).first()
