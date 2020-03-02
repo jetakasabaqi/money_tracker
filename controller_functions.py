@@ -73,14 +73,20 @@ def viewAllExpences():
     logged_in_user = User.query.filter_by(id = session['user_id']).first_or_404("Not logged in")
     expenses = UserExpense.query.filter(UserExpense.user_id == logged_in_user.id).all()
     categories = Category.query.all()
-
+    total = 0
+    today_date = datetime.now()
     for exp in expenses:
         for cat in categories:
             if exp.category_id == cat.id:
                 exp.category_name = cat.name
+        month = exp.created_at.month
+        if month != today_date.month:
+            expenses.remove(exp)
 
-    total = 0
-    today_date = datetime.now()
+
+
+
+
     for ex in expenses:
         total+= ex.amount
     
