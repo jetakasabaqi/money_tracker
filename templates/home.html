@@ -22,7 +22,7 @@
 		{% include 'includes/header.html' %}
 			<div class="container">
 				<div class="accordion" id="addExpense">
-					<h3>Welcome {{logged_in_user.first_name}}. Ad your latest expense based on categories below: </h3>
+					<h3>Welcome {{logged_in_user.first_name}}. Add an expense based on categories below: </h3>
 					{% for category in categories %}
 						<div class="card" style="width: 30rem;">
 						    <div class="card-header" id="{{'heading'+category.id|string}}">
