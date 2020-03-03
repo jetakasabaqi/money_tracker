@@ -28,7 +28,7 @@
 		{% include 'includes/header.html' %}
 		<div class="container">
 			<h4 class="mb-4">Add an expense to your To Do List. When you press done they will automatically be added to your
-				expences.</h4>
+				expences list.</h4>
 			<form action="/create-todo" method="POST">
 				<select name="category" class="form-control col-sm-3">
 					{% for category in categories %}

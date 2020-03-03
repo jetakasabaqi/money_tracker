@@ -4,10 +4,10 @@ Project : Money Tracker
 
 Money Tracker is a web application built using HTML, CSS, JavaScript, Bootstrap< JQuery, Ajax and Flask.
 Money Tracker helps you to log your everyday expenses. Each expense can be categorized.
-The user can see a list of expenses group by a month and also a doughnout chart that vizualizes
+The user can see a list of expenses grouped by a selected month and also a doughnut chart that visualizes
 how much money is going into each category.
 
-Monery Tracker allow you to add a to buy list, and when a item is checked it goes automatically 
+Money Tracker also allows you to add to a To Do list, and when a item is checked it goes automatically 
 into your expenses.
 
 <h4>Developers </h4>

@@ -110,7 +110,9 @@
 				   </tbody>
 				</table>
 				<div id="last-table-row" style="position: absolute; ">
+					<p {%if money_left < 0: %} class="negative" {%else %} class="positive"{%endif%}>Money left: {{money_left}}</p>
 					<p colspan="5">Total Month expenses: {{total}}$</p>
+
 				</div>
 			</div>
 			<div id="chartContainer"></div>

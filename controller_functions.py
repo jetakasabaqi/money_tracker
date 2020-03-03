@@ -3,6 +3,7 @@ from config import app, db
 from models import User, Category, UserExpense, UserTodo, expenses
 from flask_bcrypt import Bcrypt
 from datetime import datetime
+
 app.secret_key = 'secret'
 bcrypt = Bcrypt(app)
 
@@ -92,7 +93,7 @@ def viewAllExpences():
     date = getMonthRange(str(today_date.month))
     sql2=text(f"select categories.name, sum(expenses.amount) as money_spent from expenses inner join categories on expenses.category_id = categories.id inner join users on expenses.user_id = users.id where users.id = {logged_in_user.id} and expenses.created_at BETWEEN '{date[0]}' and '{date[1]}' group by categories.name")
     categories_by_name_and_percentage = db.engine.execute(sql2).fetchall()
-
+    money_left = float(logged_in_user.monthly_income) - float(total)
 
     cat_and_percentage = []
     for cat in categories_by_name_and_percentage:
@@ -103,7 +104,7 @@ def viewAllExpences():
         cat_and_percentage.append(data)
 
 
-    return render_template('viewAll.html', expenses = expenses_of_this_month, total = total, selected = str(today_date.month), categories_percentage = cat_and_percentage)
+    return render_template('viewAll.html',money_left = money_left, expenses = expenses_of_this_month, total = total, selected = str(today_date.month), categories_percentage = cat_and_percentage)
 
 def editExpense(id):
     expense = UserExpense.query.filter_by(id = id).first()
@@ -131,7 +132,7 @@ def filterExpense():
     expenses = logged_in_user.user_expenses
     expenses_of_this_month = []
     selected = request.form['active_months']
-    total = 0
+    total = 0.0
     for exp in expenses:
         month = exp.created_at.month
 
@@ -148,7 +149,9 @@ def filterExpense():
                 exp.category_name = cat.name
 
     date = getMonthRange(selected)
-
+  
+    money_left = float(logged_in_user.monthly_income) - float(total)
+  
     sql2=text(f"select categories.name, sum(expenses.amount) as money_spent from expenses inner join categories on expenses.category_id = categories.id inner join users on expenses.user_id = users.id where users.id = {logged_in_user.id} and expenses.created_at BETWEEN '{date[0]}' and '{date[1]}' group by categories.name")
     categories_by_name_and_percentage = db.engine.execute(sql2).fetchall()
 
@@ -161,7 +164,7 @@ def filterExpense():
         }
         cat_and_percentage.append(data)
     
-    return render_template('viewAll.html', expenses = expenses_of_this_month, selected =  selected,  categories_percentage = cat_and_percentage,total = total)
+    return render_template('viewAll.html', money_left= money_left,expenses = expenses_of_this_month, selected =  selected,  categories_percentage = cat_and_percentage,total = total)
 
 def getMonthRange(month):
     print(month)

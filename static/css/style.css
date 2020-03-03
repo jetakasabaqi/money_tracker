@@ -224,6 +224,9 @@ div.text p {
   text-align: center;
 
 }
+.negative{
+  color: red;
+}
 /*******Vizualization**********/
 .vizualization{
   margin-left: 55px;
